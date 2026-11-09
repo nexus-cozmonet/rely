@@ -11,7 +11,6 @@ The installed native shell opens https://rely.kz/ directly. It does not bundle a
 Requires Node 22, Rust stable, and the platform SDKs. Run the Tauri CLI with npx:
 
 ```sh
-npx --yes @tauri-apps/cli@2 icon public/rely-icon.svg
 npx --yes @tauri-apps/cli@2 build
 ```
 
@@ -27,7 +26,7 @@ It uploads build artifacts and publishes a GitHub prerelease. The downloads page
 
 ## iOS
 
-The iOS build is optional because installing an IPA directly on a physical iPhone requires Apple Ad Hoc signing and a provisioning profile containing that device's UDID. This does not make Apple login necessary for Rely accounts. Set the repository variable ENABLE_IOS_RELEASE=true and configure secrets IOS_CERTIFICATE_BASE64, IOS_CERTIFICATE_PASSWORD, IOS_PROVISIONING_PROFILE_BASE64, and APPLE_DEVELOPMENT_TEAM before enabling an iOS IPA build.
+The iOS build is optional because installing an IPA directly on a physical iPhone requires Apple Ad Hoc signing and a provisioning profile containing that device's UDID. This does not make Apple login necessary for Rely accounts. Set the repository variable ENABLE_IOS_RELEASE=true and configure secrets IOS_CERTIFICATE, IOS_CERTIFICATE_PASSWORD, IOS_MOBILE_PROVISION, and APPLE_DEVELOPMENT_TEAM before enabling an iOS IPA build.
 
 ## Current limitations
 
