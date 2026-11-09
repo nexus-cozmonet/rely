@@ -6,8 +6,7 @@
     "windowsMsi": "Rely-Windows.msi",
     "linux": "Rely-Linux.AppImage",
     "linuxDeb": "Rely-Linux.deb",
-    "macos": "Rely-macOS.dmg",
-    "ios": "Rely-iOS.ipa"
+    "macos": "Rely-macOS.dmg"
   },
   "direct": "https://rely.kz/"
 }
