@@ -34,6 +34,7 @@
 		"dev": "wrangler dev",
 		"e2e:dev": "wrangler dev --config wrangler.e2e.jsonc",
 		"start": "wrangler dev",
+		"tauri": "npx --yes @tauri-apps/cli@^2",
 		"test": "vitest"
 	}
 }
