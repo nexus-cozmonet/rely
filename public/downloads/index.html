@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f7f7f7">
+<title>Download Rely</title>
+<link rel="icon" href="/favicon.png" type="image/png">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f7f7f7;color:#151515;font:15px system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:850px;margin:auto;padding:20px 18px 48px}nav{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #ddd;padding:12px 0}
+.brand{font-size:22px;font-weight:800;letter-spacing:-1px;text-decoration:none;color:inherit}nav a:last-child{color:#555;text-decoration:none}
+header{text-align:center;padding:54px 0 28px}h1{font-size:clamp(36px,8vw,58px);letter-spacing:-.06em;margin:10px 0}header p{color:#666;line-height:1.6;margin:0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card{border:1px solid #ddd;border-radius:15px;padding:20px;background:white;min-height:165px;display:flex;flex-direction:column}
+.tag{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#777;font-weight:700}.card h2{font-size:22px;letter-spacing:-.04em;margin:8px 0}.card p{font-size:13px;line-height:1.5;color:#666;margin:0 0 14px}
+button,.action{display:inline-flex;align-items:center;justify-content:center;min-height:42px;border:1px solid #111;border-radius:9px;background:#111;color:#fff;text-decoration:none;padding:0 14px;font-weight:700;font-size:13px;cursor:pointer;margin-top:auto}
+.action.disabled{background:#eee;color:#888;border-color:#ddd;pointer-events:none}.status{font-size:11px;color:#777;margin-top:8px}
+.note{margin-top:18px;border:1px solid #ddd;border-radius:12px;padding:16px;color:#666;background:white;font-size:13px;line-height:1.6}
+footer{text-align:center;color:#999;font-size:12px;padding-top:25px}
+@media(max-width:560px){.grid{grid-template-columns:1fr}.card{min-height:145px}header{padding:38px 0 22px}}
+</style>
+</head>
+<body><main class="wrap">
+<nav><a class="brand" href="/">RELY</a><a href="/">Back to Rely ↗</a></nav>
+<header><div class="tag">InDC · Rely applications</div><h1>Rely, everywhere.</h1><p>Native downloads for your devices. Google, GitHub and Discord sign-in happen through Rely; Apple login is not required.</p><p id="releaseStatus" class="status">Checking published builds…</p></header>
+<section class="grid">
+<article class="card"><div class="tag">Mobile · Android</div><h2>Android APK</h2><p>Debug-signed preview build for direct installation and testing.</p><a class="action disabled" id="android">Not published yet</a><div class="status" id="androidStatus">Waiting for the first successful build</div></article>
+<article class="card"><div class="tag">Desktop · Windows</div><h2>Windows installer</h2><p>NSIS setup installer for Windows 10 and later.</p><a class="action disabled" id="windows">Not published yet</a><div class="status" id="windowsStatus">Waiting for the first successful build</div></article>
+<article class="card"><div class="tag">Desktop · Linux</div><h2>Linux AppImage</h2><p>Portable Linux package. A Debian package is also published when available.</p><a class="action disabled" id="linux">Not published yet</a><div class="status" id="linuxStatus">Waiting for the first successful build</div></article>
+<article class="card"><div class="tag">Desktop · macOS</div><h2>macOS DMG</h2><p>Apple Silicon macOS preview installer.</p><a class="action disabled" id="macos">Not published yet</a><div class="status" id="macosStatus">Waiting for the first successful build</div></article>
+<article class="card"><div class="tag">Mobile · iOS</div><h2>iPhone / iPad IPA</h2><p>Requires an Ad Hoc-signed IPA and a provisioning profile that includes your device. Apple login is not used for Rely authentication.</p><a class="action disabled" id="ios">Not published yet</a><div class="status" id="iosStatus">iOS signing and device provisioning are required</div></article>
+<article class="card"><div class="tag">Web · Direct</div><h2>Open Rely</h2><p>Use Rely directly in your browser.</p><a class="action" href="https://rely.kz/">Open Rely</a><div class="status">Available now · rely.kz</div></article>
+</section>
+<div class="note"><strong>Release status</strong><br>Install buttons activate only when a public GitHub Release contains the matching binary. Windows preview installers are unsigned and may show SmartScreen. Android preview APKs use debug signing. An iPhone-installable IPA requires Apple Ad Hoc signing and registered device UDIDs; this is separate from Rely sign-in.</div>
+<footer>Rely by Nexus · InDC</footer>
+</main>
+<script>
+(async()=>{
+  const repo="nexus-cozmonet/streamer-rely";
+  const expected={android:"Rely-Android-debug.apk",windows:"Rely-Windows-Setup.exe",linux:"Rely-Linux.AppImage",macos:"Rely-macOS.dmg",ios:"Rely-iOS.ipa"};
+  const labels={android:"Download APK",windows:"Download EXE",linux:"Download AppImage",macos:"Download DMG",ios:"Download IPA"};
+  try{
+    const response=await fetch("https://api.github.com/repos/"+repo+"/releases?per_page=15",{headers:{Accept:"application/vnd.github+json"},cache:"no-store"});
+    if(!response.ok)throw new Error("GitHub Releases API returned "+response.status);
+    const releases=await response.json();
+    const release=(Array.isArray(releases)?releases:[]).find(r=>!r.draft&&Object.values(expected).some(n=>(r.assets||[]).some(a=>a.name===n)));
+    if(!release){document.getElementById("releaseStatus").textContent="No native builds have been published yet.";return;}
+    document.getElementById("releaseStatus").textContent=(release.name||release.tag_name)+" · Published "+new Date(release.published_at||release.created_at).toLocaleDateString();
+    for(const [platform,filename] of Object.entries(expected)){
+      const asset=(release.assets||[]).find(a=>a.name===filename);
+      if(!asset)continue;
+      const link=document.getElementById(platform);
+      link.href=asset.browser_download_url;
+      link.textContent=labels[platform];
+      link.classList.remove("disabled");
+      link.setAttribute("download",filename);
+      document.getElementById(platform+"Status").textContent=(asset.size/1048576).toFixed(1)+" MB · "+release.tag_name;
+    }
+  }catch(error){
+    document.getElementById("releaseStatus").textContent="Could not check release files. Open the GitHub Releases page.";
+    console.error("Rely release discovery failed:",error);
+  }
+})();
+</script>
+</body></html>
