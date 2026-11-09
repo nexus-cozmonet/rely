@@ -29,17 +29,16 @@ footer{text-align:center;color:#999;font-size:12px;padding-top:25px}
 <article class="card"><div class="tag">Desktop · Linux</div><h2>Linux AppImage</h2><p>Portable Linux application package.</p><a class="action disabled" id="linux">Not published yet</a><div class="status" id="linuxStatus">Waiting for the first successful build</div></article>
 <article class="card"><div class="tag">Desktop · Linux</div><h2>Debian package</h2><p>Install Rely on Debian and Ubuntu-based Linux distributions.</p><a class="action disabled" id="linuxDeb">Not published yet</a><div class="status" id="linuxDebStatus">Waiting for the first successful build</div></article>
 <article class="card"><div class="tag">Desktop · macOS</div><h2>macOS DMG</h2><p>macOS preview installer.</p><a class="action disabled" id="macos">Not published yet</a><div class="status" id="macosStatus">Waiting for the first successful build</div></article>
-<article class="card"><div class="tag">Mobile · iOS</div><h2>iPhone / iPad IPA</h2><p>Requires Apple signing and a registered device. Ask a parent to handle Apple Developer setup.</p><a class="action disabled" id="ios">Not published yet</a><div class="status" id="iosStatus">Waiting for signed iOS release</div></article>
 <article class="card"><div class="tag">Web · Direct</div><h2>Open Rely</h2><p>Use Rely directly in your browser.</p><a class="action" href="https://rely.kz/">Open Rely</a><div class="status">Available now · rely.kz</div></article>
 </section>
-<div class="note"><strong>Release status</strong><br>Install buttons activate only when a public GitHub Release contains the matching binary. After selecting a download, wait for the browser to finish, then open the file to install Rely. Windows preview installers are unsigned and may show SmartScreen. Android preview APKs use debug signing. An iPhone-installable IPA requires Apple signing and registered device UDIDs; ask a parent to handle Apple Developer setup. This is separate from Rely sign-in.</div>
+<div class="note"><strong>Release status</strong><br>Install buttons activate only when a public GitHub Release contains the matching binary. After selecting a download, wait for the browser to finish, then open the file to install Rely. Windows preview installers are unsigned and may show SmartScreen. Android preview APKs use debug signing. We’re sorry! We can’t provide an iOS build right now because publishing an iPhone or iPad app requires its own Apple Developer account and Apple signing setup, which we don’t currently have. This is separate from Rely sign-in.</div>
 <footer>Rely by Nexus · InDC</footer>
 </main>
 <script>
 (async()=>{
   const repo="nexus-cozmonet/rely";
-  const expected={android:"Rely-Android-debug.apk",windows:"Rely-Windows-Setup.exe",linux:"Rely-Linux.AppImage",linuxDeb:"Rely-Linux.deb",macos:"Rely-macOS.dmg",ios:"Rely-iOS.ipa"};
-  const labels={android:"Download APK",windows:"Download EXE",linux:"Download AppImage",linuxDeb:"Download DEB",macos:"Download DMG",ios:"Download IPA"};
+  const expected={android:"Rely-Android-debug.apk",windows:"Rely-Windows-Setup.exe",linux:"Rely-Linux.AppImage",linuxDeb:"Rely-Linux.deb",macos:"Rely-macOS.dmg"};
+  const labels={android:"Download APK",windows:"Download EXE",linux:"Download AppImage",linuxDeb:"Download DEB",macos:"Download DMG"};
   try{
     const response=await fetch("https://api.github.com/repos/"+repo+"/releases?per_page=15",{headers:{Accept:"application/vnd.github+json"},cache:"no-store"});
     if(!response.ok)throw new Error("GitHub Releases API returned "+response.status);
