@@ -1,5 +1,5 @@
 {
-  "repository": "nexus-cozmonet/streamer-rely",
+  "repository": "nexus-cozmonet/rely",
   "assetNames": {
     "android": "Rely-Android-debug.apk",
     "windows": "Rely-Windows-Setup.exe",
