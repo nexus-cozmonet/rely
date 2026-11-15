@@ -151,13 +151,13 @@ jobs:
       - name: Normalize release filenames
         run: |
           mkdir -p dist
-          find release-assets -type f -name '*.apk' -exec cp {} dist/Rely-Android-debug.apk \\;
-          find release-assets -type f -name '*.exe' -exec cp {} dist/Rely-Windows-Setup.exe \\;
-          find release-assets -type f -name '*.AppImage' -exec cp {} dist/Rely-Linux.AppImage \\;
-          find release-assets -type f -name '*.deb' -exec cp {} dist/Rely-Linux.deb \\;
-          find release-assets/macos-arm64-native -type f -name '*.dmg' -exec cp {} dist/Rely-macOS-Apple-Silicon.dmg \\;
-          find release-assets/macos-intel-native -type f -name '*.dmg' -exec cp {} dist/Rely-macOS-Intel.dmg \\;
-          find release-assets -type f -name '*.ipa' -exec cp {} dist/Rely-iOS.ipa \\;
+          find release-assets -type f -name '*.apk' -exec cp {} dist/Rely-Android-debug.apk \;
+          find release-assets -type f -name '*.exe' -exec cp {} dist/Rely-Windows-Setup.exe \;
+          find release-assets -type f -name '*.AppImage' -exec cp {} dist/Rely-Linux.AppImage \;
+          find release-assets -type f -name '*.deb' -exec cp {} dist/Rely-Linux.deb \;
+          find release-assets/macos-arm64-native -type f -name '*.dmg' -exec cp {} dist/Rely-macOS-Apple-Silicon.dmg \;
+          find release-assets/macos-intel-native -type f -name '*.dmg' -exec cp {} dist/Rely-macOS-Intel.dmg \;
+          find release-assets -type f -name '*.ipa' -exec cp {} dist/Rely-iOS.ipa \;
           test -n "$(find dist -type f -print -quit)"
       - uses: softprops/action-gh-release@v2
         with:
