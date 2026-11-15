@@ -1,6 +1,6 @@
 # Rely native apps
 
-This repository now includes a Tauri 2 wrapper and GitHub Actions build pipelines.
+This repository includes a Tauri 2 wrapper and GitHub Actions build pipelines.
 
 ## App behavior
 
@@ -20,7 +20,7 @@ The workflow .github/workflows/native-release.yml builds:
 - Windows NSIS .exe and MSI
 - Android debug-signed APK
 - Linux AppImage and DEB
-- macOS DMG
+- macOS DMG for Apple Silicon (arm64) and Intel (x86_64), using separate GitHub-hosted runners
 
 It uploads build artifacts and publishes a GitHub prerelease. The downloads page queries the public GitHub Releases API and only enables a download link when the corresponding binary asset exists.
 
@@ -32,5 +32,5 @@ The iOS build is optional because installing an IPA directly on a physical iPhon
 
 - Windows installers are not code-signed; Windows SmartScreen may warn.
 - Android APK is debug-signed for preview/testing, not a production Play Store release.
-- macOS DMG is unsigned and may require local approval to open.
+- macOS DMGs are unsigned and may require local approval to open.
 - iOS direct installation is not produced unless Ad Hoc signing is configured.
