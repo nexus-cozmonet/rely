@@ -1,6 +1,8 @@
 name: macOS preview builds
 
 on:
+  push:
+    branches: [build/macos-arm64-and-intel]
   pull_request:
     branches: [main]
     paths:
